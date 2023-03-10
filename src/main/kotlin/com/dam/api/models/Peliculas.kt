@@ -3,7 +3,7 @@ package com.dam.api.models
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "productos")
+@Table(name = "peliculas")
 class Peliculas (
     @Column(name = "title")
     var title: String,

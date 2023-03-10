@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 import java.io.Serializable
 
 @Service
-abstract class GenericServiceImpl<T: Any, ID: Serializable>: GenericServiceAPI<T, ID> {
+abstract class GenericServiceImpl<T: Any, ID: Any>: GenericServiceAPI<T, ID> {
     override fun save(entity: T): T{
         return dao.save(entity)
     }

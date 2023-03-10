@@ -25,18 +25,23 @@ class SessionsController {
 
 
     @GetMapping("/today")
-    fun getOneSession(): ResponseEntity<Sessions> {
-        val today: java.util.Date = java.util.Date()
-        val date = java.sql.Date(today.day,today.month,today.year)
-        var session: Sessions? = ser[date]
-        return ResponseEntity<Sessions>(session, HttpStatus.OK)
+    fun getTodaySessions(): ResponseEntity<MutableList<Sessions>> {
+        var session = currentSession()
+        return ResponseEntity(session, HttpStatus.OK)
     }
 
-    private fun currentSession(): Sessions?{
+    private fun currentSession(): MutableList<Sessions>?{
         val today: java.util.Date = java.util.Date()
         val date = java.sql.Date(today.day,today.month,today.year)
-        val session: Sessions? = ser[date]
-        return session
+        val all = allSessions()
+        val contador = (all?.size?: 1) -1
+        val sesiones: MutableList<Sessions> = mutableListOf()
+        for(i in 0..contador){
+            if(all?.get(i)!!.date==date){
+                sesiones.add(all[i])
+            }
+        }
+        return sesiones
     }
     private fun allSessions(): MutableList<Sessions>?{
         val sessions = ser.all
@@ -45,13 +50,14 @@ class SessionsController {
 
     @GetMapping("/sincetoday")
     fun allSinceToday(): ResponseEntity<MutableList<Sessions>> {
-        val sessionToday = currentSession()?.date
+        val today: java.util.Date = java.util.Date()
+        val date = java.sql.Date(today.day,today.month,today.year)
         val all = allSessions()?.sortedBy { it.date }
         val contador = (all?.size?: 1) -1
         val sesiones: MutableList<Sessions> = mutableListOf()
         for(i in 0..contador){
-            if(all?.get(i)!!.date==sessionToday){
-                sesiones.addAll(sesiones.subList(fromIndex = i, toIndex = contador))
+            if(all?.get(i)!!.date==date){
+                sesiones.addAll(all.subList(fromIndex = i, toIndex = contador))
             }
         }
         return ResponseEntity(sesiones,HttpStatus.OK)
@@ -59,10 +65,10 @@ class SessionsController {
 
 
 
-    @DeleteMapping("/{date}")
-    fun deleteOneSession(@PathVariable date: java.sql.Date): ResponseEntity<String> {
-        ser.delete(date)
-        var session = ser[date]
+    @DeleteMapping("/{id}")
+    fun deleteOneSession(@PathVariable id: Long): ResponseEntity<String> {
+        ser.delete(id)
+        var session = ser[id]
         if(session==null){
             return ResponseEntity("Borrado", HttpStatus.OK)
         } else {
@@ -84,7 +90,7 @@ class SessionsController {
     fun updateSession(@RequestBody session: Sessions): ResponseEntity<String> {
         var sessio = ser.save(session)
         if(sessio!=null){
-            return ResponseEntity("Cambiado producto con id "+session.id, HttpStatus.ACCEPTED)
+            return ResponseEntity("Cambiada sesión con id "+session.id, HttpStatus.ACCEPTED)
         } else{
             return ResponseEntity("Error", HttpStatus.BAD_REQUEST)
         }

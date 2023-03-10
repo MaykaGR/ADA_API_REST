@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service
 import java.sql.Date
 
 @Service
-class SessionsServiceImpl: SessionsServiceAPI, GenericServiceImpl<Sessions, Date>()  {
+class SessionsServiceImpl: SessionsServiceAPI, GenericServiceImpl<Sessions, Long>()  {
     @Autowired
     lateinit var sessionsRepository: SessionsRepository
 
-    override val dao: CrudRepository<Sessions, Date>
+    override val dao: CrudRepository<Sessions, Long>
         get() = sessionsRepository
 }

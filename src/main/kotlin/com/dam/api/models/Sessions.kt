@@ -10,9 +10,9 @@ class Sessions(
     var movie_id: Peliculas,
     @Column(name = "room_id")
     var room_id: Int,
-    @Id
     @Column(name = "date")
     var date: Date,
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     var id: Long) {
