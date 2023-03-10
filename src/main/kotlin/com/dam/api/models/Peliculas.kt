@@ -10,7 +10,7 @@ class Peliculas (
     @Column(name= "director")
     var director: String,
     @Column(name = "time")
-    var time: Int,
+    var time: String,
     @Column(name = "trailer")
     var trailer: String,
     @Column(name = "poster_image")

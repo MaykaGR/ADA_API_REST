@@ -90,7 +90,7 @@ class SessionsController {
     fun updateSession(@RequestBody session: Sessions): ResponseEntity<String> {
         var sessio = ser.save(session)
         if(sessio!=null){
-            return ResponseEntity("Cambiada sesión con id "+session.id, HttpStatus.ACCEPTED)
+            return ResponseEntity("Cambiada sesión con id "+session.id, HttpStatus.OK)
         } else{
             return ResponseEntity("Error", HttpStatus.BAD_REQUEST)
         }

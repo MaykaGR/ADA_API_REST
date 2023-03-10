@@ -42,7 +42,7 @@ class UsuariosController {
     fun insertUser(@RequestBody user: Usuarios): ResponseEntity<String> {
         var producto = ser.save(user)
         if(producto!=null){
-            return ResponseEntity("Insertado "+user.nick, HttpStatus.ACCEPTED)
+            return ResponseEntity("Insertado "+user.nick, HttpStatus.OK)
         } else{
             return ResponseEntity("Error", HttpStatus.BAD_REQUEST)
         }
@@ -55,7 +55,7 @@ class UsuariosController {
         userU = user
         var guardado = ser.save(userU)
         if(guardado!=null){
-            return ResponseEntity("Cambiado usuario "+user.nick, HttpStatus.ACCEPTED)
+            return ResponseEntity("Cambiado usuario "+user.nick, HttpStatus.OK)
         } else{
             return ResponseEntity("Error", HttpStatus.BAD_REQUEST)
         }} else {

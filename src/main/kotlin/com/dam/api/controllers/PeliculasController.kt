@@ -55,7 +55,7 @@ class PeliculasController {
     fun updatePelicula(@RequestBody film: Peliculas): ResponseEntity<String>{
         var pelicula = ser.save(film)
         if(pelicula!=null){
-            return ResponseEntity("Cambiada película con id "+film.id,HttpStatus.ACCEPTED)
+            return ResponseEntity("Cambiada película con id "+film.id,HttpStatus.OK)
         } else{
             return ResponseEntity("Error",HttpStatus.BAD_REQUEST)}
     }
