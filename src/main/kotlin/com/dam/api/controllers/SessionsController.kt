@@ -10,7 +10,7 @@ import java.time.LocalDate
 
 
 @RestController
-@RequestMapping("/api/sessions")
+@RequestMapping("/api/v1/sessions")
 @CrossOrigin("*")
 class SessionsController {
     @Autowired

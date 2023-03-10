@@ -9,7 +9,7 @@ import com.dam.api.services.PeliculasServiceImpl
 
 
 @RestController
-@RequestMapping("/api/movies")
+@RequestMapping("/api/v1/movies")
 @CrossOrigin("*")
 class PeliculasController {
 
