@@ -19,8 +19,8 @@ class Peliculas (
     var screenshot: String,
     @Column(name = "synopsis")
     var synopsis: String,
-    @OneToMany(mappedBy = "movie_id", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    val sessions: MutableSet<Sessions> = mutableSetOf(),
+    //@OneToMany(mappedBy = "movie_id", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    //val sessions: MutableSet<Sessions> = mutableSetOf(),
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

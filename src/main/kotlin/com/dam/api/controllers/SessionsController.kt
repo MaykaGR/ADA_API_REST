@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-
+import java.time.LocalDate
 
 
 @RestController
@@ -31,13 +31,13 @@ class SessionsController {
     }
 
     private fun currentSession(): MutableList<Sessions>?{
-        val today: java.util.Date = java.util.Date()
-        val date = java.sql.Date(today.day,today.month,today.year)
+        val today = LocalDate.now()
+        //val date = java.sql.Date(today.month,today.year,today.day)
         val all = allSessions()
         val contador = (all?.size?: 1) -1
         val sesiones: MutableList<Sessions> = mutableListOf()
         for(i in 0..contador){
-            if(all?.get(i)!!.date==date){
+            if(all?.get(i)!!.date==today){
                 sesiones.add(all[i])
             }
         }
@@ -50,13 +50,13 @@ class SessionsController {
 
     @GetMapping("/sincetoday")
     fun allSinceToday(): ResponseEntity<MutableList<Sessions>> {
-        val today: java.util.Date = java.util.Date()
-        val date = java.sql.Date(today.day,today.month,today.year)
+        val today = LocalDate.now()
+        //val date = java.sql.Date(today.day,today.month,today.year)
         val all = allSessions()?.sortedBy { it.date }
         val contador = (all?.size?: 1) -1
         val sesiones: MutableList<Sessions> = mutableListOf()
         for(i in 0..contador){
-            if(all?.get(i)!!.date==date){
+            if(all?.get(i)!!.date==today){
                 sesiones.addAll(all.subList(fromIndex = i, toIndex = contador))
             }
         }
