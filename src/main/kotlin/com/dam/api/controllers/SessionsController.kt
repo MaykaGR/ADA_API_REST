@@ -32,7 +32,6 @@ class SessionsController {
 
     private fun currentSession(): MutableList<Sessions>?{
         val today = LocalDate.now()
-        //val date = java.sql.Date(today.month,today.year,today.day)
         val all = allSessions()
         val contador = (all?.size?: 1) -1
         val sesiones: MutableList<Sessions> = mutableListOf()
@@ -51,13 +50,17 @@ class SessionsController {
     @GetMapping("/sincetoday")
     fun allSinceToday(): ResponseEntity<MutableList<Sessions>> {
         val today = LocalDate.now()
-        //val date = java.sql.Date(today.day,today.month,today.year)
+        //println(today)
         val all = allSessions()?.sortedBy { it.date }
+        /*if (all != null) {
+            for(i in 0..all.size-1)
+                println(all[i].date)
+        }*/
         val contador = (all?.size?: 1) -1
         val sesiones: MutableList<Sessions> = mutableListOf()
         for(i in 0..contador){
-            if(all?.get(i)!!.date==today){
-                sesiones.addAll(all.subList(fromIndex = i, toIndex = contador))
+            if(all?.get(i)!!.date.isEqual(today)||all?.get(i)!!.date.isAfter(today)){
+                sesiones.add(all.get(i))
             }
         }
         return ResponseEntity(sesiones,HttpStatus.OK)

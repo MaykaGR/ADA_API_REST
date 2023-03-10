@@ -9,7 +9,7 @@ class Sessions(
     //@ManyToOne(cascade = [CascadeType.ALL])
     //@JoinColumn(name="movie_id")
     @Column(name="movie_id")
-    var movie_id: Int,
+    var movie_id: Long,
     @Column(name = "room_id")
     var room_id: Int,
     @Column(name = "date")
